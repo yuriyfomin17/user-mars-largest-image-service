@@ -1,0 +1,25 @@
+services:
+  user-mars-largest-image-service:
+    build:
+      context: .
+    ports:
+      - 8081:8081
+    depends_on:
+      - rabbit
+      - mars-largest-image-service
+  mars-largest-image-service:
+    image: mars-largest-image-service
+    ports:
+      - 8080:8080
+    depends_on:
+      - redis
+      - rabbit
+  rabbit:
+    image: rabbitmq:management
+    ports:
+      - 5672:5672
+      - 15672:15672
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
